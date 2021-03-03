@@ -13,7 +13,7 @@ impl std::error::Error for Error {
         "pty-shell error"
     }
 
-    fn cause(&self) -> Option<&std::error::Error> {
+    fn cause(&self) -> Option<&dyn std::error::Error> {
         match *self {
             Error::Pty(ref err) => Some(err),
             Error::Io(ref err) => Some(err),
@@ -23,7 +23,7 @@ impl std::error::Error for Error {
 
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        std::error::Error::description(self).fmt(f)
+        write!(f, "{}", self.to_string())
     }
 }
 

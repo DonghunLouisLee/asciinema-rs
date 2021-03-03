@@ -22,7 +22,7 @@ pub struct RawHandler {
     pub input: unix::PipeReader,
     pub output: unix::PipeReader,
     pub pty: tty::Master,
-    pub handler: Box<PtyHandler>,
+    pub handler: Box<dyn PtyHandler>,
     pub resize_count: i32,
 }
 
@@ -36,7 +36,7 @@ impl RawHandler {
         input: unix::PipeReader,
         output: unix::PipeReader,
         pty: tty::Master,
-        handler: Box<PtyHandler>,
+        handler: Box<dyn PtyHandler>,
     ) -> Self {
         RawHandler {
             input: input,
